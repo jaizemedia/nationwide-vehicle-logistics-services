@@ -17,7 +17,7 @@ export function Hero() {
           <div className="max-w-xl">
             <div className="inline-flex items-center gap-2 px-3 py-1 mb-6 text-xs font-medium bg-secondary text-secondary-foreground rounded-full border border-border">
               <span className="w-2 h-2 rounded-full bg-accent" />
-              Trusted Nationwide Vehicle Transport
+              Trusted Continental Vehicle Transport
             </div>
 
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground leading-tight text-balance">
