@@ -31,7 +31,7 @@ export function Footer() {
               <span className="font-semibold text-lg tracking-tight">CVLS</span>
             </div>
             <p className="text-muted-foreground/70 text-sm leading-relaxed max-w-xs">
-              Continental Vehicle Logistics Services - Your trusted partner for safe, reliable vehicle transport across the UK.
+              Continental Vehicle Logistics Services - Your trusted partner for safe, reliable vehicle transport across the world.
             </p>
 
             <div className="mt-6 space-y-3">
