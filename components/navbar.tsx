@@ -21,7 +21,16 @@ export function Navbar() {
       <nav className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           <div className="flex items-center gap-2">
-            <Truck className="h-8 w-8 text-foreground" />
+            <img
+              src="/light-mode-logo.png"
+              alt="CVLS logo"
+              className="h-8 w-8 block dark:hidden"
+            />
+            <img
+              src="/dark-mode-logo.png"
+              alt="CVLS logo"
+              className="h-8 w-8 hidden dark:block"
+            />
             <span className="font-semibold text-lg tracking-tight text-foreground">CVLS</span>
           </div>
 
