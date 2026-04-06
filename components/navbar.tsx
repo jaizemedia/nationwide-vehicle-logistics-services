@@ -22,7 +22,7 @@ export function Navbar() {
         <div className="flex h-16 items-center justify-between">
           <div className="flex items-center gap-2">
             <Truck className="h-8 w-8 text-foreground" />
-            <span className="font-semibold text-lg tracking-tight text-foreground">NVLS</span>
+            <span className="font-semibold text-lg tracking-tight text-foreground">CVLS</span>
           </div>
 
           {/* Desktop Navigation */}

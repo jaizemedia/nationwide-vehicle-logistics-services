@@ -46,7 +46,7 @@ export function About() {
           <div className="grid grid-cols-2 gap-4">
             <div className="p-8 bg-primary text-primary-foreground rounded-lg">
               <p className="text-3xl font-bold">Drivers</p>
-              <p className="mt-2 text-primary-foreground/80">Approved by NVLS Driver Assessment</p>
+              <p className="mt-2 text-primary-foreground/80">Approved by CVLS Driver Assessment</p>
             </div>
             <div className="p-8 bg-muted rounded-lg border border-border">
               <p className="text-2xl font-bold text-foreground">All drivers</p>

@@ -8,7 +8,7 @@ const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'Nationwide Vehicle Logistics Services | Safe & Reliable Transport',
+  title: 'Continental Vehicle Logistics Services | Safe & Reliable Transport',
   description: 'Professional vehicle movement and logistics support company. Trade plate movements, bulk delivery, vehicle inspections, and customer handover services.',
   generator: 'v0.app',
   icons: {
