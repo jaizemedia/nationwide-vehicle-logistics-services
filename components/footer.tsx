@@ -21,7 +21,7 @@ const navigation = {
 
 export function Footer() {
   return (
-    <footer id="contact" className="bg-primary text-primary-foreground">
+    <footer id="contact" className="bg-muted text-muted-foreground">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 lg:gap-12">
           {/* Brand Column */}
@@ -30,7 +30,7 @@ export function Footer() {
               <Truck className="h-8 w-8" />
               <span className="font-semibold text-lg tracking-tight">NVLS</span>
             </div>
-            <p className="text-primary-foreground/70 text-sm leading-relaxed max-w-xs">
+            <p className="text-muted-foreground/70 text-sm leading-relaxed max-w-xs">
               Nationwide Vehicle Logistics Services - Your trusted partner for safe, reliable vehicle transport across the UK.
             </p>
 
@@ -39,17 +39,17 @@ export function Footer() {
                 href="https://wa.me/233243863033" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="flex items-center gap-3 text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors"
+                className="flex items-center gap-3 text-sm text-muted-foreground/70 hover:text-muted-foreground transition-colors"
               >
                 <Phone className="h-4 w-4" />
                 <span>+233 24 386 3033</span>
               </a>
 
-              <div className="flex items-center gap-3 text-sm text-primary-foreground/70">
+              <div className="flex items-center gap-3 text-sm text-muted-foreground/70">
                 <Mail className="h-4 w-4" />
                 <span>info@nvls.co.uk</span>
               </div>
-              <div className="flex items-center gap-3 text-sm text-primary-foreground/70">
+              <div className="flex items-center gap-3 text-sm text-muted-foreground/70">
                 <MapPin className="h-4 w-4" />
                 <span>Milton Keynes, United Kingdom and Tema, Ghana</span>
               </div>
@@ -65,7 +65,7 @@ export function Footer() {
                 <li key={item.name}>
                   <Link
                     href={item.href}
-                    className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors"
+                    className="text-sm text-muted-foreground/70 hover:text-muted-foreground transition-colors"
                   >
                     {item.name}
                   </Link>
@@ -82,7 +82,7 @@ export function Footer() {
                 <li key={item.name}>
                   <Link
                     href={item.href}
-                    className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors"
+                    className="text-sm text-muted-foreground/70 hover:text-muted-foreground transition-colors"
                   >
                     {item.name}
                   </Link>
@@ -93,12 +93,12 @@ export function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-12 pt-8 border-t border-primary-foreground/10">
+        <div className="mt-12 pt-8 border-t border-muted-foreground/10">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-sm text-primary-foreground/60">
+            <p className="text-sm text-muted-foreground/60">
               &copy; {new Date().getFullYear()} Nationwide Vehicle Logistics Services. All rights reserved.
             </p>
-            <p className="text-sm text-primary-foreground/60">
+            <p className="text-sm text-muted-foreground/60">
               Fully Insured & Licensed Vehicle Transport
             </p>
           </div>
