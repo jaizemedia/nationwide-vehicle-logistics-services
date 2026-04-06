@@ -1,5 +1,6 @@
 import { Truck, Car, Package, ClipboardCheck, Handshake, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 const services = [
   {
@@ -76,13 +77,15 @@ export function Services() {
                 Contact us to discuss your specific vehicle logistics requirements.
               </p>
             </div>
-            <Button
-              variant="secondary"
-              className="mt-6 w-full bg-primary-foreground text-primary hover:bg-primary-foreground/90 gap-2"
-            >
-              Contact Us
-              <ArrowRight className="h-4 w-4" />
-            </Button>
+<Link href="/get-a-quote" passHref className="w-full">
+  <Button
+    variant="secondary"
+    className="mt-6 w-full bg-primary-foreground text-primary hover:bg-primary-foreground/90 gap-2"
+  >
+    Contact Us
+    <ArrowRight className="h-4 w-4" />
+  </Button>
+</Link>
           </div>
         </div>
       </div>

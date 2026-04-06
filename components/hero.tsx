@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Shield, Clock, CheckCircle } from "lucide-react";
 
@@ -27,7 +29,9 @@ export function Hero() {
             </p>
 
             <div className="mt-8 flex flex-col sm:flex-row gap-4">
-              <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 gap-2">
+              <Button size="lg"
+              onClick={() => window.location.href = '/get-a-quote'}
+              className="bg-primary text-primary-foreground hover:bg-primary/90 gap-2">
                 Request a Quote
                 <ArrowRight className="h-4 w-4" />
               </Button>
@@ -36,21 +40,7 @@ export function Hero() {
               </Button>
             </div>
 
-            {/* Trust Indicators */}
-            <div className="mt-12 grid grid-cols-3 gap-6">
-              <div className="text-center">
-                <p className="text-3xl font-bold text-foreground">500+</p>
-                <p className="text-sm text-muted-foreground mt-1">Vehicles Monthly</p>
-              </div>
-              <div className="text-center">
-                <p className="text-3xl font-bold text-foreground">99%</p>
-                <p className="text-sm text-muted-foreground mt-1">On-Time Delivery</p>
-              </div>
-              <div className="text-center">
-                <p className="text-3xl font-bold text-foreground">24/7</p>
-                <p className="text-sm text-muted-foreground mt-1">Support Available</p>
-              </div>
-            </div>
+          
           </div>
 
           {/* Right Content - Feature Cards */}

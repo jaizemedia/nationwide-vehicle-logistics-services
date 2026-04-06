@@ -6,7 +6,7 @@ import { Menu, X, Truck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const navigation = [
-  { name: "Home", href: "#" },
+  { name: "Home", href: "/" },
   { name: "Services", href: "#services" },
   { name: "About", href: "#about" },
   { name: "Contact", href: "#contact" },
@@ -72,9 +72,12 @@ export function Navbar() {
                   {item.name}
                 </Link>
               ))}
-              <Button className="w-full bg-primary text-primary-foreground hover:bg-primary/90">
-                Get a Quote
-              </Button>
+              <Button 
+  onClick={() => window.location.href = '/get-a-quote'}
+  className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
+>
+  Get a Quote
+</Button>
             </div>
           </div>
         )}

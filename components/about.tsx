@@ -45,20 +45,12 @@ export function About() {
           {/* Right Content - Stats Grid */}
           <div className="grid grid-cols-2 gap-4">
             <div className="p-8 bg-primary text-primary-foreground rounded-lg">
-              <p className="text-5xl font-bold">10+</p>
-              <p className="mt-2 text-primary-foreground/80">Years of Experience</p>
-            </div>
-            <div className="p-8 bg-secondary rounded-lg">
-              <p className="text-5xl font-bold text-foreground">5K+</p>
-              <p className="mt-2 text-muted-foreground">Vehicles Delivered</p>
-            </div>
-            <div className="p-8 bg-secondary rounded-lg">
-              <p className="text-5xl font-bold text-foreground">200+</p>
-              <p className="mt-2 text-muted-foreground">Business Partners</p>
+              <p className="text-3xl font-bold">Drivers</p>
+              <p className="mt-2 text-primary-foreground/80">Approved by NVLS Driver Assessment</p>
             </div>
             <div className="p-8 bg-muted rounded-lg border border-border">
-              <p className="text-5xl font-bold text-foreground">98%</p>
-              <p className="mt-2 text-muted-foreground">Client Satisfaction</p>
+              <p className="text-2xl font-bold text-foreground">All drivers</p>
+              <p className="mt-2 text-muted-foreground">Insured and Approved</p>
             </div>
           </div>
         </div>
