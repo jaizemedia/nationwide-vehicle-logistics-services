@@ -11,14 +11,11 @@ const navigation = {
   ],
   company: [
     { name: "About Us", href: "#about" },
-    { name: "Our Team", href: "#" },
-    { name: "Careers", href: "#" },
-    { name: "Contact", href: "#contact" },
+    { name: "Contact", href: "#get-a-quote" },
   ],
   legal: [
     { name: "Privacy Policy", href: "#" },
-    { name: "Terms of Service", href: "#" },
-    { name: "Cookie Policy", href: "#" },
+
   ],
 };
 
@@ -38,53 +35,27 @@ export function Footer() {
             </p>
 
             <div className="mt-6 space-y-3">
-              <div className="flex items-center gap-3 text-sm text-primary-foreground/70">
+              <a 
+                href="https://wa.me/233243863033" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors"
+              >
                 <Phone className="h-4 w-4" />
                 <span>+233 24 386 3033</span>
-              </div>
+              </a>
+
               <div className="flex items-center gap-3 text-sm text-primary-foreground/70">
                 <Mail className="h-4 w-4" />
                 <span>info@nvls.co.uk</span>
               </div>
               <div className="flex items-center gap-3 text-sm text-primary-foreground/70">
                 <MapPin className="h-4 w-4" />
-                <span>London, United Kingdom</span>
+                <span>Milton Keynes, United Kingdom and Tema, Ghana</span>
               </div>
             </div>
-
-            {/* Social Media Links */}
-            <div className="mt-6 flex gap-4">
-              <Link href="#" className="text-primary-foreground/70 hover:text-primary-foreground transition-colors">
-                <Facebook className="h-5 w-5" />
-                <span className="sr-only">Facebook</span>
-              </Link>
-              <Link href="#" className="text-primary-foreground/70 hover:text-primary-foreground transition-colors">
-                <Twitter className="h-5 w-5" />
-                <span className="sr-only">Twitter</span>
-              </Link>
-              <Link href="#" className="text-primary-foreground/70 hover:text-primary-foreground transition-colors">
-                <Linkedin className="h-5 w-5" />
-                <span className="sr-only">LinkedIn</span>
-              </Link>
-            </div>
           </div>
 
-          {/* Services Column */}
-          <div>
-            <h3 className="font-semibold text-sm mb-4">Services</h3>
-            <ul className="space-y-3">
-              {navigation.services.map((item) => (
-                <li key={item.name}>
-                  <Link
-                    href={item.href}
-                    className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors"
-                  >
-                    {item.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
 
           {/* Company Column */}
           <div>

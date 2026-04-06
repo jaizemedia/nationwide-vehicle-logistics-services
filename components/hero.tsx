@@ -35,8 +35,9 @@ export function Hero() {
                 Request a Quote
                 <ArrowRight className="h-4 w-4" />
               </Button>
-              <Button size="lg" variant="outline" className="border-border text-foreground hover:bg-secondary">
-                Our Services
+              
+              <Button asChild size="lg" variant="outline" className="border-border text-foreground hover:bg-secondary">
+                <a href="#services">Our Services</a>
               </Button>
             </div>
 

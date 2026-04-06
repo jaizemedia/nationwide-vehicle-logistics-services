@@ -10,7 +10,7 @@ const navigation = [
   { name: "Home", href: "/" },
   { name: "Services", href: "#services" },
   { name: "About", href: "#about" },
-  { name: "Contact", href: "#contact" },
+  { name: "Contact", href: "/get-a-quote" },
 ];
 
 export function Navbar() {
@@ -38,12 +38,15 @@ export function Navbar() {
             ))}
           </div>
 
-          <div className="hidden md:flex md:items-center md:gap-4">
-            <Button className="bg-primary text-primary-foreground hover:bg-primary/90">
-              Get a Quote
-            </Button>
-            <ThemeToggle />
-          </div>
+<div className="hidden md:flex md:items-center md:gap-4">
+  <Link href="/get-a-quote">
+    <Button className="bg-primary text-primary-foreground hover:bg-primary/90">
+      Get a Quote
+    </Button>
+  </Link>
+  <ThemeToggle />
+</div>
+
 
           {/* Mobile menu button */}
           <button
