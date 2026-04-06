@@ -11,13 +11,13 @@ export function About() {
               Who We Are
             </p>
             <h2 className="text-3xl md:text-4xl font-bold text-foreground tracking-tight text-balance">
-              A Local Company with Nationwide Reach
+              A Local Company with Continental Reach
             </h2>
             <p className="mt-6 text-lg text-muted-foreground leading-relaxed">
               We are a local vehicle movement and logistics support company, committed to safe, reliable, and efficient transport. Our team ensures every vehicle is handled with care and every client is informed.
             </p>
             <p className="mt-4 text-muted-foreground leading-relaxed">
-              Delivering stress-free logistics solutions for individuals and businesses alike, we combine local expertise with nationwide capabilities to meet all your vehicle transport needs.
+              Delivering stress-free logistics solutions for individuals and businesses alike, we combine local expertise with Continential capabilities to meet all your vehicle transport needs.
             </p>
 
             <div className="mt-10 grid grid-cols-3 gap-8">
