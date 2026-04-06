@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Truck, Phone, Mail, MapPin } from "lucide-react";
+import { Truck, Phone, Mail, MapPin, Facebook, Twitter, Linkedin } from "lucide-react";
 
 const navigation = {
   services: [
@@ -40,7 +40,7 @@ export function Footer() {
             <div className="mt-6 space-y-3">
               <div className="flex items-center gap-3 text-sm text-primary-foreground/70">
                 <Phone className="h-4 w-4" />
-                <span>0800 123 4567</span>
+                <span>+233 24 386 3033</span>
               </div>
               <div className="flex items-center gap-3 text-sm text-primary-foreground/70">
                 <Mail className="h-4 w-4" />
@@ -48,8 +48,24 @@ export function Footer() {
               </div>
               <div className="flex items-center gap-3 text-sm text-primary-foreground/70">
                 <MapPin className="h-4 w-4" />
-                <span>United Kingdom</span>
+                <span>London, United Kingdom</span>
               </div>
+            </div>
+
+            {/* Social Media Links */}
+            <div className="mt-6 flex gap-4">
+              <Link href="#" className="text-primary-foreground/70 hover:text-primary-foreground transition-colors">
+                <Facebook className="h-5 w-5" />
+                <span className="sr-only">Facebook</span>
+              </Link>
+              <Link href="#" className="text-primary-foreground/70 hover:text-primary-foreground transition-colors">
+                <Twitter className="h-5 w-5" />
+                <span className="sr-only">Twitter</span>
+              </Link>
+              <Link href="#" className="text-primary-foreground/70 hover:text-primary-foreground transition-colors">
+                <Linkedin className="h-5 w-5" />
+                <span className="sr-only">LinkedIn</span>
+              </Link>
             </div>
           </div>
 

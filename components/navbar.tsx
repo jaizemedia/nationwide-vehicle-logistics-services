@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { Menu, X, Truck } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 const navigation = [
   { name: "Home", href: "/" },
@@ -37,10 +38,11 @@ export function Navbar() {
             ))}
           </div>
 
-          <div className="hidden md:block">
+          <div className="hidden md:flex md:items-center md:gap-4">
             <Button className="bg-primary text-primary-foreground hover:bg-primary/90">
               Get a Quote
             </Button>
+            <ThemeToggle />
           </div>
 
           {/* Mobile menu button */}
@@ -78,6 +80,9 @@ export function Navbar() {
 >
   Get a Quote
 </Button>
+              <div className="flex justify-center pt-2">
+                <ThemeToggle />
+              </div>
             </div>
           </div>
         )}

@@ -70,22 +70,23 @@ export function Services() {
           ))}
 
           {/* CTA Card */}
-          <div className="p-6 bg-primary text-primary-foreground rounded-lg flex flex-col justify-between">
+          <div className="p-6 bg-primary text-primary-foreground rounded-lg flex flex-col justify-between min-h-[200px]">
             <div>
               <h3 className="text-lg font-semibold mb-2">Need a Custom Solution?</h3>
-              <p className="text-primary-foreground/80 text-sm leading-relaxed">
-                Contact us to discuss your specific vehicle logistics requirements.
+              <p className="text-primary-foreground/80 text-sm leading-relaxed mb-4">
+                Contact us to discuss your specific vehicle logistics requirements. We offer tailored solutions for dealerships, fleets, and individual clients.
               </p>
             </div>
-<Link href="/get-a-quote" passHref className="w-full">
-  <Button
-    variant="secondary"
-    className="mt-6 w-full bg-primary-foreground text-primary hover:bg-primary-foreground/90 gap-2"
-  >
-    Contact Us
-    <ArrowRight className="h-4 w-4" />
-  </Button>
-</Link>
+            <Button
+              asChild
+              variant="secondary"
+              className="w-full bg-primary-foreground text-primary hover:bg-primary-foreground/90 gap-2"
+            >
+              <Link href="/get-a-quote">
+                Get Started
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </Button>
           </div>
         </div>
       </div>
