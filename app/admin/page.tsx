@@ -15,7 +15,7 @@ export default function AdminLogin() {
   const [error, setError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [mounted, setMounted] = useState(false)
-  const { signIn, user, loading } = useAuth()
+  const { signIn, signOut, user, isAdmin, loading } = useAuth()
   const router = useRouter()
 
   useEffect(() => {
@@ -23,10 +23,22 @@ export default function AdminLogin() {
   }, [])
 
   useEffect(() => {
-    if (mounted && !loading && user) {
+    if (!mounted || loading) return
+
+    if (user && isAdmin) {
       router.push('/admin/dashboard')
+      return
     }
-  }, [mounted, loading, user, router])
+
+    if (user && !isAdmin) {
+      const handleUnauthorized = async () => {
+        await signOut()
+        setError('You are not authorized to access the admin portal.')
+      }
+
+      handleUnauthorized()
+    }
+  }, [mounted, loading, user, isAdmin, router, signOut])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -35,7 +47,6 @@ export default function AdminLogin() {
 
     try {
       await signIn(email, password)
-      router.push('/admin/dashboard')
     } catch (err) {
       setError('Invalid credentials. Please try again.')
       console.error(err)
@@ -47,16 +58,16 @@ export default function AdminLogin() {
   if (!mounted || loading || user) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <Loader2 className="h-8 w-8 animate-spin text-[#1a8a8a]" />
+        <Loader2 className="h-8 w-8 animate-spin text-black" />
       </div>
     )
   }
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-4">
-      <Card className="w-full max-w-md">
+      <Card className="w-full max-w-md border border-slate-200 shadow-sm">
         <CardHeader className="text-center space-y-4">
-          <div className="mx-auto w-16 h-16 bg-[#1a8a8a] rounded-full flex items-center justify-center">
+          <div className="mx-auto w-16 h-16 bg-black rounded-full flex items-center justify-center">
             <Shield className="h-8 w-8 text-white" />
           </div>
           <CardTitle className="text-2xl font-bold">Admin Portal</CardTitle>
@@ -95,7 +106,7 @@ export default function AdminLogin() {
             )}
             <Button
               type="submit"
-              className="w-full bg-[#1a8a8a] hover:bg-[#157070] text-white"
+              className="w-full bg-black hover:bg-neutral-800 text-white"
               disabled={isLoading}
             >
               {isLoading ? (

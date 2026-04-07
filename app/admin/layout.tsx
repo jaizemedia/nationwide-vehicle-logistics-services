@@ -1,6 +1,7 @@
 'use client'
 
 import { AuthProvider } from '@/lib/auth-context'
+import { Navbar } from '@/components/navbar'
 
 export default function AdminLayout({
   children,
@@ -9,7 +10,8 @@ export default function AdminLayout({
 }) {
   return (
     <AuthProvider>
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-white text-black pt-16">
+        <Navbar />
         {children}
       </div>
     </AuthProvider>

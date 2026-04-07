@@ -31,7 +31,7 @@ export function PortalHeader({ title, showBack, backHref, job }: PortalHeaderPro
   }
 
   return (
-    <header className="bg-[#1a8a8a] text-white">
+    <header className="bg-black text-white border-b border-white/10">
       {/* Top bar */}
       <div className="flex items-center justify-between px-4 py-3">
         <div className="flex items-center gap-2">
@@ -62,7 +62,7 @@ export function PortalHeader({ title, showBack, backHref, job }: PortalHeaderPro
         <div className="px-4 pb-4 space-y-1">
           <div className="flex items-center gap-3">
             <Truck className="h-8 w-8 text-white/80" />
-            <span className="px-3 py-1 bg-[#e6b800] text-black font-bold rounded text-sm">
+            <span className="px-3 py-1 bg-white text-black font-bold rounded text-sm">
               {job.vehicleRegistration}
             </span>
             <div className="text-sm">

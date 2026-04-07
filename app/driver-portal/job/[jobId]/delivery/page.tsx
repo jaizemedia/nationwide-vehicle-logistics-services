@@ -50,6 +50,11 @@ export default function DeliveryFormPage({ params }: { params: Promise<{ jobId: 
         const jobData = { id: jobSnap.id, ...jobSnap.data() } as Job
         setJob(jobData)
 
+        if (!jobData.driverId || jobData.driverId !== user?.uid) {
+          router.push(`/driver-portal/job/${jobId}`)
+          return
+        }
+
         // Check if collection is complete - if not, redirect back
         if (jobData.collectionFormStatus !== 'sent') {
           router.push(`/driver-portal/job/${jobId}`)

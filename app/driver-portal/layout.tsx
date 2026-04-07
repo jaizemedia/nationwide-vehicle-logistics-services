@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { AuthProvider } from '@/lib/auth-context'
+import { Navbar } from '@/components/navbar'
 
 export const metadata: Metadata = {
   title: 'Driver Portal | Continental Vehicle Logistics',
@@ -13,7 +14,8 @@ export default function DriverPortalLayout({
 }) {
   return (
     <AuthProvider>
-      <div className="min-h-screen bg-[#1a8a8a]">
+      <div className="min-h-screen bg-white text-black pt-16">
+        <Navbar />
         {children}
       </div>
     </AuthProvider>

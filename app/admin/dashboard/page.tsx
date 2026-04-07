@@ -46,7 +46,7 @@ export default function AdminDashboard() {
   const [mounted, setMounted] = useState(false)
   const [deleteJobId, setDeleteJobId] = useState<string | null>(null)
   const [deleting, setDeleting] = useState(false)
-  const { user, loading: authLoading, signOut } = useAuth()
+  const { user, isAdmin, loading: authLoading, signOut } = useAuth()
   const router = useRouter()
 
   useEffect(() => {
@@ -54,14 +54,23 @@ export default function AdminDashboard() {
   }, [])
 
   useEffect(() => {
-    if (mounted && !authLoading && !user) {
-      router.push('/admin')
+    if (!mounted || authLoading) return
+
+    if (!user || !isAdmin) {
+      const redirectToLogin = async () => {
+        if (user && !isAdmin) {
+          await signOut()
+        }
+        router.push('/admin')
+      }
+
+      redirectToLogin()
     }
-  }, [mounted, authLoading, user, router])
+  }, [mounted, authLoading, user, isAdmin, router, signOut])
 
   useEffect(() => {
     const fetchJobs = async () => {
-      if (!user) return
+      if (!user || !isAdmin) return
       
       try {
         const jobsRef = collection(db, 'jobs')
@@ -79,7 +88,7 @@ export default function AdminDashboard() {
       }
     }
 
-    if (user) {
+    if (user && isAdmin) {
       fetchJobs()
     }
   }, [user])
@@ -115,7 +124,7 @@ export default function AdminDashboard() {
     }
   }
 
-  if (!mounted || authLoading || !user) {
+  if (!mounted || authLoading || !user || !isAdmin) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <Loader2 className="h-8 w-8 animate-spin text-[#1a8a8a]" />
@@ -133,7 +142,7 @@ export default function AdminDashboard() {
   return (
     <div className="min-h-screen">
       {/* Header */}
-      <header className="bg-[#1a8a8a] text-white shadow">
+      <header className="bg-black text-white shadow">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
@@ -162,7 +171,7 @@ export default function AdminDashboard() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-          <Card>
+          <Card className="border border-slate-200 shadow-sm">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Total Jobs</CardTitle>
               <ClipboardList className="h-4 w-4 text-muted-foreground" />
@@ -171,7 +180,7 @@ export default function AdminDashboard() {
               <div className="text-2xl font-bold">{stats.totalJobs}</div>
             </CardContent>
           </Card>
-          <Card>
+          <Card className="border border-slate-200 shadow-sm">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Pending Collection</CardTitle>
               <Truck className="h-4 w-4 text-yellow-500" />
@@ -180,7 +189,7 @@ export default function AdminDashboard() {
               <div className="text-2xl font-bold text-yellow-600">{stats.pendingCollection}</div>
             </CardContent>
           </Card>
-          <Card>
+          <Card className="border border-slate-200 shadow-sm">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Pending Delivery</CardTitle>
               <Truck className="h-4 w-4 text-blue-500" />
@@ -189,7 +198,7 @@ export default function AdminDashboard() {
               <div className="text-2xl font-bold text-blue-600">{stats.pendingDelivery}</div>
             </CardContent>
           </Card>
-          <Card>
+          <Card className="border border-slate-200 shadow-sm">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Completed</CardTitle>
               <Users className="h-4 w-4 text-green-500" />
@@ -201,11 +210,11 @@ export default function AdminDashboard() {
         </div>
 
         {/* Jobs Table */}
-        <Card>
+        <Card className="border border-slate-200 shadow-sm">
           <CardHeader className="flex flex-row items-center justify-between">
             <CardTitle>Jobs</CardTitle>
             <Link href="/admin/jobs/new">
-              <Button className="bg-[#1a8a8a] hover:bg-[#157070]">
+              <Button className="bg-black hover:bg-neutral-800">
                 <Plus className="h-4 w-4 mr-2" />
                 Create Job
               </Button>
@@ -214,7 +223,7 @@ export default function AdminDashboard() {
           <CardContent>
             {loading ? (
               <div className="flex justify-center py-8">
-                <Loader2 className="h-8 w-8 animate-spin text-[#1a8a8a]" />
+                <Loader2 className="h-8 w-8 animate-spin text-black" />
               </div>
             ) : jobs.length === 0 ? (
               <div className="text-center py-8 text-muted-foreground">

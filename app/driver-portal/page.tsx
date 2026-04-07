@@ -90,7 +90,7 @@ export default function DriverPortalLogin() {
 
   if (!mounted || loading || user) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#1a7a7a]">
+      <div className="min-h-screen flex items-center justify-center bg-black">
         <Loader2 className="h-8 w-8 animate-spin text-white" />
       </div>
     )
@@ -100,10 +100,10 @@ export default function DriverPortalLogin() {
     <div className="min-h-screen flex flex-col items-center justify-center p-4">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center space-y-4">
-          <div className="mx-auto w-16 h-16 bg-[#1a8a8a] rounded-full flex items-center justify-center">
+          <div className="mx-auto w-16 h-16 bg-black rounded-full flex items-center justify-center">
             <Truck className="h-8 w-8 text-white" />
           </div>
-          <CardTitle className="text-2xl font-bold text-[#1a8a8a]">
+          <CardTitle className="text-2xl font-bold text-black">
             Driver Portal
           </CardTitle>
           <p className="text-muted-foreground">
@@ -148,7 +148,7 @@ export default function DriverPortalLogin() {
                 )}
                 <Button
                   type="submit"
-                  className="w-full bg-[#1a8a8a] hover:bg-[#157070] text-white"
+                  className="w-full bg-black hover:bg-neutral-800 text-white"
                   disabled={isLoading}
                 >
                   {isLoading ? (
@@ -218,7 +218,7 @@ export default function DriverPortalLogin() {
                 )}
                 <Button
                   type="submit"
-                  className="w-full bg-[#1a8a8a] hover:bg-[#157070] text-white"
+                  className="w-full bg-black hover:bg-neutral-800 text-white"
                   disabled={isLoading}
                 >
                   {isLoading ? (

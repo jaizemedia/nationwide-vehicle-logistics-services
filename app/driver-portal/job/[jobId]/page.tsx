@@ -2,8 +2,9 @@
 
 import { use, useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { doc, getDoc } from 'firebase/firestore'
+import { collection, doc, getDoc, query, where, getDocs, updateDoc } from 'firebase/firestore'
 import { db } from '@/lib/firebase'
+import { useAuth } from '@/lib/auth-context'
 import type { Job } from '@/lib/types'
 import { AuthGuard } from '@/components/driver-portal/auth-guard'
 import { PortalHeader } from '@/components/driver-portal/portal-header'
@@ -16,7 +17,10 @@ export default function JobOverviewPage({ params }: { params: Promise<{ jobId: s
   const { jobId } = use(params)
   const [job, setJob] = useState<Job | null>(null)
   const [loading, setLoading] = useState(true)
+  const [activeSignupCount, setActiveSignupCount] = useState(0)
+  const [isSigningUp, setIsSigningUp] = useState(false)
   const [error, setError] = useState('')
+  const { user } = useAuth()
   const router = useRouter()
 
   useEffect(() => {
@@ -31,7 +35,12 @@ export default function JobOverviewPage({ params }: { params: Promise<{ jobId: s
           return
         }
 
-        setJob({ id: jobSnap.id, ...jobSnap.data() } as Job)
+        const jobData = { id: jobSnap.id, ...jobSnap.data() } as Job
+        setJob(jobData)
+
+        if (jobData.driverId && jobData.driverId !== user?.uid) {
+          setError('This job is assigned to another driver.')
+        }
       } catch (err) {
         console.error('Error fetching job:', err)
         setError('Failed to load job details')
@@ -41,7 +50,28 @@ export default function JobOverviewPage({ params }: { params: Promise<{ jobId: s
     }
 
     fetchJob()
-  }, [jobId])
+  }, [jobId, user])
+
+  useEffect(() => {
+    const fetchAssignedCount = async () => {
+      if (!user) return
+
+      try {
+        const jobsRef = collection(db, 'jobs')
+        const q = query(jobsRef, where('driverId', '==', user.uid))
+        const snapshot = await getDocs(q)
+        const jobsData = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() } as Job))
+        const count = jobsData.filter(
+          (job) => !(job.collectionFormStatus === 'sent' && job.deliveryFormStatus === 'sent')
+        ).length
+        setActiveSignupCount(count)
+      } catch (err) {
+        console.error('Error fetching active signups:', err)
+      }
+    }
+
+    fetchAssignedCount()
+  }, [user])
 
   if (loading) {
     return (
@@ -74,6 +104,30 @@ export default function JobOverviewPage({ params }: { params: Promise<{ jobId: s
   }
 
   const canAccessDeliveryForm = job.collectionFormStatus === 'sent'
+  const activeSignupLimitReached = activeSignupCount >= 2
+  const isJobAssignedToMe = job.driverId === user?.uid
+  const canSignUpForJob = !job.driverId && !activeSignupLimitReached
+
+  const handleSignUp = async () => {
+    if (!job || !user || !canSignUpForJob) return
+
+    setIsSigningUp(true)
+    try {
+      const jobRef = doc(db, 'jobs', jobId)
+      await updateDoc(jobRef, {
+        driverId: user.uid,
+        updatedAt: new Date().toISOString(),
+      })
+
+      setJob({ ...job, driverId: user.uid })
+      setActiveSignupCount((count) => count + 1)
+    } catch (err) {
+      console.error('Error signing up for job:', err)
+      setError('Unable to sign up for this job. Please try again.')
+    } finally {
+      setIsSigningUp(false)
+    }
+  }
 
   return (
     <AuthGuard>
@@ -87,7 +141,7 @@ export default function JobOverviewPage({ params }: { params: Promise<{ jobId: s
         
         <main className="flex-1 p-4 space-y-4">
           {/* Job Details Card */}
-          <Card>
+          <Card className="border border-slate-200 shadow-sm">
             <CardContent className="pt-6 space-y-4">
               {/* Chassis Number */}
               <div>
@@ -101,7 +155,7 @@ export default function JobOverviewPage({ params }: { params: Promise<{ jobId: s
               <div className="space-y-2">
                 <div className="flex items-start justify-between">
                   <div>
-                    <p className="text-sm font-semibold text-[#1a8a8a]">Collection Address</p>
+                    <p className="text-sm font-semibold text-black">Collection Address</p>
                     <p className="text-sm">{job.collectionAddress}</p>
                   </div>
                   <Button
@@ -109,7 +163,7 @@ export default function JobOverviewPage({ params }: { params: Promise<{ jobId: s
                     size="icon"
                     onClick={() => window.open(`https://maps.google.com/?q=${encodeURIComponent(job.collectionAddress + ' ' + job.collectionPostcode)}`, '_blank')}
                   >
-                    <MapPin className="h-5 w-5 text-[#1a8a8a]" />
+                    <MapPin className="h-5 w-5 text-black" />
                   </Button>
                 </div>
                 <div className="grid grid-cols-2 gap-4 text-sm">
@@ -140,7 +194,7 @@ export default function JobOverviewPage({ params }: { params: Promise<{ jobId: s
               <div className="space-y-2">
                 <div className="flex items-start justify-between">
                   <div>
-                    <p className="text-sm font-semibold text-[#1a8a8a]">Delivery Address</p>
+                    <p className="text-sm font-semibold text-black">Delivery Address</p>
                     <p className="text-sm">{job.deliveryAddress}</p>
                   </div>
                   <Button
@@ -148,7 +202,7 @@ export default function JobOverviewPage({ params }: { params: Promise<{ jobId: s
                     size="icon"
                     onClick={() => window.open(`https://maps.google.com/?q=${encodeURIComponent(job.deliveryAddress + ' ' + job.deliveryPostcode)}`, '_blank')}
                   >
-                    <MapPin className="h-5 w-5 text-[#1a8a8a]" />
+                    <MapPin className="h-5 w-5 text-black" />
                   </Button>
                 </div>
                 <div className="grid grid-cols-2 gap-4 text-sm">
@@ -192,15 +246,48 @@ export default function JobOverviewPage({ params }: { params: Promise<{ jobId: s
             </CardContent>
           </Card>
 
+          {!job.driverId ? (
+            <Card className="border border-slate-200 shadow-sm">
+              <CardContent className="space-y-4">
+                <div>
+                  <p className="text-sm font-semibold text-black">Job Signup</p>
+                  <p className="text-sm text-muted-foreground">
+                    This job is not yet assigned. Sign up to claim it and access the collection form.
+                  </p>
+                </div>
+                {activeSignupLimitReached ? (
+                  <p className="text-sm text-destructive">
+                    You already have 2 active jobs. Complete one before signing up for another.
+                  </p>
+                ) : (
+                  <Button
+                    className="w-full bg-black hover:bg-neutral-800 text-white"
+                    onClick={handleSignUp}
+                    disabled={isSigningUp}
+                  >
+                    {isSigningUp ? 'Signing up...' : 'Sign up for this job'}
+                  </Button>
+                )}
+              </CardContent>
+            </Card>
+          ) : isJobAssignedToMe ? (
+            <Card className="border border-slate-200 shadow-sm bg-black">
+              <CardContent className="space-y-2">
+                <p className="text-sm font-semibold text-white">Assigned Job</p>
+                <p className="text-sm text-white/80">You are signed up for this job.</p>
+              </CardContent>
+            </Card>
+          ) : null}
+
           {/* Collection Form Button */}
           <Button
             className="w-full h-auto py-4 bg-white hover:bg-gray-50 text-foreground border border-border justify-between"
             onClick={() => router.push(`/driver-portal/job/${jobId}/collection`)}
           >
             <div className="flex items-center gap-3">
-              <FileText className="h-6 w-6 text-[#1a8a8a]" />
+              <FileText className="h-6 w-6 text-black" />
               <div className="text-left">
-                <p className="font-semibold">Collection Form</p>
+                <p className="font-semibold text-black">Collection Form</p>
                 <p className={`text-sm ${job.collectionFormStatus === 'sent' ? 'text-green-600' : 'text-muted-foreground'}`}>
                   {job.collectionFormStatus === 'sent' ? 'Sent' : job.collectionFormStatus === 'in-progress' ? 'In Progress' : 'New'}
                 </p>
@@ -216,9 +303,9 @@ export default function JobOverviewPage({ params }: { params: Promise<{ jobId: s
             disabled={!canAccessDeliveryForm}
           >
             <div className="flex items-center gap-3">
-              <FileText className="h-6 w-6 text-[#1a8a8a]" />
+              <FileText className="h-6 w-6 text-black" />
               <div className="text-left">
-                <p className="font-semibold">Delivery Form</p>
+                <p className="font-semibold text-black">Delivery Form</p>
                 <p className={`text-sm ${job.deliveryFormStatus === 'sent' ? 'text-green-600' : 'text-muted-foreground'}`}>
                   {!canAccessDeliveryForm 
                     ? 'Complete collection first' 

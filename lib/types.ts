@@ -1,5 +1,6 @@
 export interface Job {
   id: string
+  driverId?: string
   jobReference: string
   vehicleRegistration: string
   vehicleMake: string

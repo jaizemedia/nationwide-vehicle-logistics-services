@@ -50,6 +50,11 @@ export default function CollectionFormPage({ params }: { params: Promise<{ jobId
         const jobData = { id: jobSnap.id, ...jobSnap.data() } as Job
         setJob(jobData)
 
+        if (!jobData.driverId || jobData.driverId !== user?.uid) {
+          router.push(`/driver-portal/job/${jobId}`)
+          return
+        }
+
         // Check if form is read-only
         if (jobData.collectionFormStatus === 'sent') {
           setIsReadOnly(true)
