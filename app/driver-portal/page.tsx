@@ -103,7 +103,7 @@ export default function DriverPortalLogin() {
           <div className="mx-auto w-16 h-16 bg-black rounded-full flex items-center justify-center">
             <Truck className="h-8 w-8 text-white" />
           </div>
-          <CardTitle className="text-2xl font-bold text-black">
+          <CardTitle className="text-2xl font-bold text-black dark:text-white">
             Driver Portal
           </CardTitle>
           <p className="text-muted-foreground">

@@ -94,7 +94,7 @@ export function Navbar() {
               <Button 
   onClick={() => window.location.href = '/driver-portal'}
   variant="outline"
-  className="w-full border-[#1a8a8a] text-[#1a8a8a] hover:bg-[#1a8a8a] hover:text-white"
+  className="w-full border-black text-black dark:text-white hover:bg-black hover:text-white"
 >
   Driver Portal
 </Button>
