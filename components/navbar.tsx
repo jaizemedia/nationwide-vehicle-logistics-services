@@ -48,6 +48,11 @@ export function Navbar() {
           </div>
 
 <div className="hidden md:flex md:items-center md:gap-4">
+  <Link href="/driver-portal">
+    <Button variant="outline" className="border-[#1a8a8a] text-[#1a8a8a] hover:bg-[#1a8a8a] hover:text-white">
+      Driver Portal
+    </Button>
+  </Link>
   <Link href="/get-a-quote">
     <Button className="bg-primary text-primary-foreground hover:bg-primary/90">
       Get a Quote
@@ -87,6 +92,13 @@ export function Navbar() {
                 </Link>
               ))}
               <Button 
+  onClick={() => window.location.href = '/driver-portal'}
+  variant="outline"
+  className="w-full border-[#1a8a8a] text-[#1a8a8a] hover:bg-[#1a8a8a] hover:text-white"
+>
+  Driver Portal
+</Button>
+<Button 
   onClick={() => window.location.href = '/get-a-quote'}
   className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
 >
