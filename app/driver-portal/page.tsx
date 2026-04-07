@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/lib/auth-context'
 import { Button } from '@/components/ui/button'
@@ -14,14 +14,20 @@ export default function DriverPortalLogin() {
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+  const [mounted, setMounted] = useState(false)
   const { signIn, user, loading } = useAuth()
   const router = useRouter()
 
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
   // Redirect if already logged in
-  if (!loading && user) {
-    router.push('/driver-portal/lookup')
-    return null
-  }
+  useEffect(() => {
+    if (mounted && !loading && user) {
+      router.push('/driver-portal/lookup')
+    }
+  }, [mounted, loading, user, router])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -39,9 +45,9 @@ export default function DriverPortalLogin() {
     }
   }
 
-  if (loading) {
+  if (!mounted || loading || user) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center bg-[#1a7a7a]">
         <Loader2 className="h-8 w-8 animate-spin text-white" />
       </div>
     )
