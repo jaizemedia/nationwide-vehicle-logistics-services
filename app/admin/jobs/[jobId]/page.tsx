@@ -139,7 +139,7 @@ export default function JobDetailPage() {
               <Link href="/admin/dashboard">
                 <Button variant="outline" size="sm" className="border-white/30 text-white hover:bg-white/10">
                   <ArrowLeft className="h-4 w-4 mr-2" />
-                  Back to Dashboard
+                  Back to the Dashboard
                 </Button>
               </Link>
               <div>
