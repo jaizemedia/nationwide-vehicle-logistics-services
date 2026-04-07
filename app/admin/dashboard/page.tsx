@@ -155,10 +155,9 @@ export default function AdminDashboard() {
             <div className="flex items-center gap-4">
               <span className="text-sm hidden sm:block">{user.email}</span>
               <Button
-                variant="outline"
                 size="sm"
                 onClick={handleSignOut}
-                className="border-white/30 text-white hover:bg-white/10"
+                className="bg-black text-white hover:bg-neutral-800 border-transparent"
               >
                 <LogOut className="h-4 w-4 mr-2" />
                 Sign Out
