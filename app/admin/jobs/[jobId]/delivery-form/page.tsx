@@ -1,1 +1,1 @@
-export { default } from '../../delivery-form.tsx';
+export { default } from '@/app/driver-portal/job/[jobId]/delivery/page';
