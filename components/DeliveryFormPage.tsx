@@ -164,9 +164,11 @@ export function DeliveryFormPageComponent({ jobId, isAdmin = false }: { jobId: s
   const renderStep = () => {
     switch (currentStep) {
       case 1:
+        // ...existing code for step 1...
         return (
           <Card>
             <CardContent className="pt-6 space-y-4">
+              {/* ...existing code for step 1... */}
               <div className="flex items-center justify-between py-3 border-b">
                 <Label className="text-muted-foreground">Mileage on delivery</Label>
                 <Input type="number" value={formData.mileage} onChange={e => updateFormField('mileage', e.target.value)} className="w-32 text-right" />
@@ -207,9 +209,11 @@ export function DeliveryFormPageComponent({ jobId, isAdmin = false }: { jobId: s
           </Card>
         );
       case 2:
+        // ...existing code for step 2...
         return (
           <Card>
             <CardContent className="pt-6 space-y-4">
+              {/* ...existing code for step 2... */}
               <div className="flex items-center justify-between py-3 border-b">
                 <Label className="text-muted-foreground">Headrests present</Label>
                 <YesNoToggle value={formData.headrestsPresent} onChange={v => updateFormField('headrestsPresent', v)} />
@@ -260,9 +264,11 @@ export function DeliveryFormPageComponent({ jobId, isAdmin = false }: { jobId: s
           </Card>
         );
       case 3:
+        // ...existing code for step 3...
         return (
           <Card>
             <CardContent className="pt-6">
+              {/* ...existing code for step 3... */}
               <PhotoUpload label="Photo taken of left hand side" photoKey="leftSide" photoUrl={formData.photoUrls?.leftSide} confirmed={formData.photoLeftSide} onConfirmChange={v => updateFormField('photoLeftSide', v)} onPhotoUpload={url => updatePhotoUrl('leftSide', url)} />
               <PhotoUpload label="Photo taken of right hand side" photoKey="rightSide" photoUrl={formData.photoUrls?.rightSide} confirmed={formData.photoRightSide} onConfirmChange={v => updateFormField('photoRightSide', v)} onPhotoUpload={url => updatePhotoUrl('rightSide', url)} />
               <PhotoUpload label="Photo taken of front" photoKey="front" photoUrl={formData.photoUrls?.front} confirmed={formData.photoFront} onConfirmChange={v => updateFormField('photoFront', v)} onPhotoUpload={url => updatePhotoUrl('front', url)} />
@@ -273,7 +279,149 @@ export function DeliveryFormPageComponent({ jobId, isAdmin = false }: { jobId: s
             </CardContent>
           </Card>
         );
-      // Steps 4-11 can be implemented similarly, following the collection form as a template.
+      case 4:
+      case 5:
+      case 6:
+      case 7:
+        // Summary/confirmation steps - show editable summary of data
+        return (
+          <Card>
+            <CardContent className="pt-6 space-y-3">
+              <div className="flex flex-col gap-2">
+                <div className="flex justify-between py-2 border-b">
+                  <span className="text-muted-foreground">Mileage on delivery</span>
+                  <span>{formData.mileage || '-'}</span>
+                </div>
+                <div className="flex justify-between py-2 border-b">
+                  <span className="text-muted-foreground">Charge</span>
+                  <span>{formData.charge || '-'}</span>
+                </div>
+                <div className="flex justify-between py-2 border-b">
+                  <span className="text-muted-foreground">Fuel</span>
+                  <span>{formData.fuel || '-'}</span>
+                </div>
+                <div className="flex justify-between py-2 border-b">
+                  <span className="text-muted-foreground">Number of Keys</span>
+                  <span>{formData.numberOfKeys || '-'}</span>
+                </div>
+                <div className="flex justify-between py-2 border-b">
+                  <span className="text-muted-foreground">Vehicle Delivery Pack</span>
+                  <span>{formData.vehicleDeliveryPack === null ? '-' : formData.vehicleDeliveryPack ? 'Yes' : 'No'}</span>
+                </div>
+                <div className="flex justify-between py-2 border-b">
+                  <span className="text-muted-foreground">Number Plates present & match</span>
+                  <span>{formData.numberPlatesMatch === null ? '-' : formData.numberPlatesMatch ? 'Yes' : 'No'}</span>
+                </div>
+                {/* Add more summary fields as needed */}
+              </div>
+            </CardContent>
+          </Card>
+        );
+      case 8:
+        // Disclaimer step
+        return (
+          <Card>
+            <CardContent className="pt-6">
+              <p className="text-sm leading-relaxed text-justify">
+                If the vehicle is inspected in poor weather conditions, or is excessively soiled, it may not be possible to produce an accurate inspection report. In such instances the right is reserved to recharge for any damage not recorded at the time of hand over. Any missing items will also be rechargeable. By signing this document, you are agreeing that as far as you are aware all personal, business and professional items have been removed, you agree with the recorded details of the vehicle condition and the stated mileage is correct. I confirm that I agree with the details recorded.
+              </p>
+              <div className="flex items-center space-x-2 mt-6">
+                <input type="checkbox" checked={formData.agreedWithInfo === true} onChange={e => updateFormField('agreedWithInfo', e.target.checked)} />
+                <label className="text-sm text-muted-foreground cursor-pointer">
+                  *By selecting confirm you agree to the above disclaimer.
+                </label>
+              </div>
+            </CardContent>
+          </Card>
+        );
+      case 9:
+        // Customer signature step
+        return (
+          <Card>
+            <CardContent className="pt-6 space-y-4">
+              <div>
+                <Label className="text-muted-foreground">Customer Name</Label>
+                <Input value={formData.customerName} onChange={e => updateFormField('customerName', e.target.value)} className="mt-1" />
+              </div>
+              <div>
+                <Label className="text-muted-foreground">Company</Label>
+                <Input value={formData.customerCompany} onChange={e => updateFormField('customerCompany', e.target.value)} className="mt-1" />
+              </div>
+              <div className="flex items-center justify-between py-3 border-b">
+                <Label className="text-muted-foreground text-sm">
+                  Have you been shown the details recorded by the driver?
+                </Label>
+                <YesNoToggle value={formData.customerShownDetails} onChange={v => updateFormField('customerShownDetails', v)} />
+              </div>
+              <div className="flex items-center justify-between py-3 border-b">
+                <Label className="text-muted-foreground text-sm">
+                  Are you signing for this vehicle on behalf of someone else?
+                </Label>
+                <YesNoToggle value={formData.signingOnBehalf} onChange={v => updateFormField('signingOnBehalf', v)} />
+              </div>
+              {formData.signingOnBehalf && (
+                <div>
+                  <Label className="text-muted-foreground">Signed for by</Label>
+                  <Input value={formData.signedForBy} onChange={e => updateFormField('signedForBy', e.target.value)} className="mt-1" />
+                </div>
+              )}
+              <div>
+                <Label className="text-muted-foreground">Customer Signature</Label>
+                <Input value={formData.customerSignature} onChange={e => updateFormField('customerSignature', e.target.value)} className="mt-1" />
+              </div>
+            </CardContent>
+          </Card>
+        );
+      case 10:
+        // Handover prompt
+        return (
+          <Card>
+            <CardContent className="pt-6">
+              <div className="flex flex-col items-center justify-center py-12 text-center">
+                <div className="w-24 h-24 mb-6 text-muted-foreground">
+                  <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="2">
+                    <rect x="20" y="10" width="60" height="80" rx="2" />
+                    <path d="M50 70 L30 85 L35 70 L30 55 Z" />
+                    <path d="M55 60 Q70 55 75 65 Q80 75 65 80" />
+                  </svg>
+                </div>
+                <p className="text-lg text-muted-foreground">
+                  Please hand the device back to the delivery agent
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+        );
+      case 11:
+        // Driver signature step
+        return (
+          <Card>
+            <CardContent className="pt-6 space-y-4">
+              <div>
+                <Label className="text-muted-foreground">Driver Name</Label>
+                <Input value={formData.driverName} onChange={e => updateFormField('driverName', e.target.value)} className="mt-1" />
+              </div>
+              <div>
+                <Label className="text-muted-foreground">Driver Signature</Label>
+                <Input value={formData.driverSignature} onChange={e => updateFormField('driverSignature', e.target.value)} className="mt-1" />
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <Label className="text-muted-foreground">Estimated time of arrival</Label>
+                  <Input type="date" value={formData.estimatedArrivalDate} onChange={e => updateFormField('estimatedArrivalDate', e.target.value)} className="mt-1" />
+                </div>
+                <div>
+                  <Label className="text-muted-foreground">&nbsp;</Label>
+                  <Input type="time" value={formData.estimatedArrivalTime} onChange={e => updateFormField('estimatedArrivalTime', e.target.value)} className="mt-1" />
+                </div>
+              </div>
+              <div>
+                <Label className="text-muted-foreground">Agent notes</Label>
+                <Textarea value={formData.agentNotes} onChange={e => updateFormField('agentNotes', e.target.value)} className="mt-1" />
+              </div>
+            </CardContent>
+          </Card>
+        );
       default:
         return <div />;
     }
