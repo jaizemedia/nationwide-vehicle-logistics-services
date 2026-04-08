@@ -161,16 +161,130 @@ export function DeliveryFormPageComponent({ jobId, isAdmin = false }: { jobId: s
   }
 
   // --- Render editable delivery form steps (adapted from collection form) ---
-  // For brevity, you can adapt the renderStep logic from the collection form, changing labels as needed.
-  // ...existing renderStep and FormNavigation logic goes here...
+  const renderStep = () => {
+    switch (currentStep) {
+      case 1:
+        return (
+          <Card>
+            <CardContent className="pt-6 space-y-4">
+              <div className="flex items-center justify-between py-3 border-b">
+                <Label className="text-muted-foreground">Mileage on delivery</Label>
+                <Input type="number" value={formData.mileage} onChange={e => updateFormField('mileage', e.target.value)} className="w-32 text-right" />
+              </div>
+              <div className="flex items-center justify-between py-3 border-b">
+                <Label className="text-muted-foreground">Fuel</Label>
+                <Input value={formData.fuel} onChange={e => updateFormField('fuel', e.target.value)} className="w-32 text-right" />
+              </div>
+              <div className="flex items-center justify-between py-3 border-b">
+                <Label className="text-muted-foreground">Charge</Label>
+                <Input value={formData.charge} onChange={e => updateFormField('charge', e.target.value)} className="w-32 text-right" />
+              </div>
+              <div className="flex items-center justify-between py-3 border-b">
+                <Label className="text-muted-foreground">Number of Keys</Label>
+                <Input type="number" value={formData.numberOfKeys} onChange={e => updateFormField('numberOfKeys', e.target.value)} className="w-32 text-right" />
+              </div>
+              <div className="flex items-center justify-between py-3 border-b">
+                <Label className="text-muted-foreground">Vehicle Delivery Pack</Label>
+                <YesNoToggle value={formData.vehicleDeliveryPack} onChange={v => updateFormField('vehicleDeliveryPack', v)} />
+              </div>
+              <div className="flex items-center justify-between py-3 border-b">
+                <Label className="text-muted-foreground">Locking Wheel Nut</Label>
+                <YesNoToggle value={formData.lockingWheelNut} onChange={v => updateFormField('lockingWheelNut', v)} />
+              </div>
+              <div className="flex items-center justify-between py-3 border-b">
+                <Label className="text-muted-foreground">Number Plates present & match</Label>
+                <YesNoToggle value={formData.numberPlatesMatch} onChange={v => updateFormField('numberPlatesMatch', v)} />
+              </div>
+              <div className="flex items-center justify-between py-3 border-b">
+                <Label className="text-muted-foreground">Any warning lights on</Label>
+                <YesNoToggle value={formData.warningLightsOn} onChange={v => updateFormField('warningLightsOn', v)} />
+              </div>
+              <div className="flex items-center justify-between py-3">
+                <Label className="text-muted-foreground">Sat Nav working</Label>
+                <YesNoToggle value={formData.satNavWorking} onChange={v => updateFormField('satNavWorking', v)} />
+              </div>
+            </CardContent>
+          </Card>
+        );
+      case 2:
+        return (
+          <Card>
+            <CardContent className="pt-6 space-y-4">
+              <div className="flex items-center justify-between py-3 border-b">
+                <Label className="text-muted-foreground">Headrests present</Label>
+                <YesNoToggle value={formData.headrestsPresent} onChange={v => updateFormField('headrestsPresent', v)} />
+              </div>
+              <div className="flex items-center justify-between py-3 border-b">
+                <Label className="text-muted-foreground">Parcel Shelf Present</Label>
+                <YesNoToggle value={formData.parcelShelfPresent} onChange={v => updateFormField('parcelShelfPresent', v)} />
+              </div>
+              <div className="flex items-center justify-between py-3 border-b">
+                <Label className="text-muted-foreground">Spare Wheel / Tyre inflation / Run Flats</Label>
+                <YesNoToggle value={formData.spareWheelPresent} onChange={v => updateFormField('spareWheelPresent', v)} />
+              </div>
+              <div className="flex items-center justify-between py-3 border-b">
+                <Label className="text-muted-foreground">Jack</Label>
+                <YesNoToggle value={formData.jackPresent} onChange={v => updateFormField('jackPresent', v)} />
+              </div>
+              <div className="flex items-center justify-between py-3 border-b">
+                <Label className="text-muted-foreground">Tools</Label>
+                <YesNoToggle value={formData.toolsPresent} onChange={v => updateFormField('toolsPresent', v)} />
+              </div>
+              <div className="flex items-center justify-between py-3 border-b">
+                <Label className="text-muted-foreground">Charging Cable(s)</Label>
+                <YesNoToggle value={formData.chargingCablesPresent} onChange={v => updateFormField('chargingCablesPresent', v)} />
+              </div>
+              {formData.chargingCablesPresent && (
+                <div className="flex items-center justify-between py-3 border-b">
+                  <Label className="text-muted-foreground">If yes, number of charging cables</Label>
+                  <Input type="number" value={formData.numberOfChargingCables} onChange={e => updateFormField('numberOfChargingCables', e.target.value)} className="w-32 text-right" />
+                </div>
+              )}
+              <div className="flex items-center justify-between py-3 border-b">
+                <Label className="text-muted-foreground">V5 (Registration document) present</Label>
+                <YesNoToggle value={formData.v5DocumentPresent} onChange={v => updateFormField('v5DocumentPresent', v)} />
+              </div>
+              <div className="flex items-center justify-between py-3 border-b">
+                <Label className="text-muted-foreground">Light</Label>
+                <Input value={formData.light} onChange={e => updateFormField('light', e.target.value)} className="w-32 text-right" />
+              </div>
+              <div className="flex items-center justify-between py-3 border-b">
+                <Label className="text-muted-foreground">Weather</Label>
+                <Input value={formData.weather} onChange={e => updateFormField('weather', e.target.value)} className="w-32 text-right" />
+              </div>
+              <div className="py-3">
+                <Label className="text-muted-foreground">Notes</Label>
+                <Textarea value={formData.notes} onChange={e => updateFormField('notes', e.target.value)} className="mt-2" />
+              </div>
+            </CardContent>
+          </Card>
+        );
+      case 3:
+        return (
+          <Card>
+            <CardContent className="pt-6">
+              <PhotoUpload label="Photo taken of left hand side" photoKey="leftSide" photoUrl={formData.photoUrls?.leftSide} confirmed={formData.photoLeftSide} onConfirmChange={v => updateFormField('photoLeftSide', v)} onPhotoUpload={url => updatePhotoUrl('leftSide', url)} />
+              <PhotoUpload label="Photo taken of right hand side" photoKey="rightSide" photoUrl={formData.photoUrls?.rightSide} confirmed={formData.photoRightSide} onConfirmChange={v => updateFormField('photoRightSide', v)} onPhotoUpload={url => updatePhotoUrl('rightSide', url)} />
+              <PhotoUpload label="Photo taken of front" photoKey="front" photoUrl={formData.photoUrls?.front} confirmed={formData.photoFront} onConfirmChange={v => updateFormField('photoFront', v)} onPhotoUpload={url => updatePhotoUrl('front', url)} />
+              <PhotoUpload label="Photo taken of back" photoKey="back" photoUrl={formData.photoUrls?.back} confirmed={formData.photoBack} onConfirmChange={v => updateFormField('photoBack', v)} onPhotoUpload={url => updatePhotoUrl('back', url)} />
+              <PhotoUpload label="Photo taken of dashboard" photoKey="dashboard" photoUrl={formData.photoUrls?.dashboard} confirmed={formData.photoDashboard} onConfirmChange={v => updateFormField('photoDashboard', v)} onPhotoUpload={url => updatePhotoUrl('dashboard', url)} />
+              <PhotoUpload label="Photo taken of keys" photoKey="keys" photoUrl={formData.photoUrls?.keys} confirmed={formData.photoKeys} onConfirmChange={v => updateFormField('photoKeys', v)} onPhotoUpload={url => updatePhotoUrl('keys', url)} />
+              <PhotoUpload label="Photo taken of number plates" photoKey="numberPlates" photoUrl={formData.photoUrls?.numberPlates} confirmed={formData.photoNumberPlates} onConfirmChange={v => updateFormField('photoNumberPlates', v)} onPhotoUpload={url => updatePhotoUrl('numberPlates', url)} />
+            </CardContent>
+          </Card>
+        );
+      // Steps 4-11 can be implemented similarly, following the collection form as a template.
+      default:
+        return <div />;
+    }
+  };
 
   return (
     <AuthGuard>
-      {/* ...existing editable delivery form UI goes here (steps, navigation, etc.)... */}
       <div className="min-h-screen flex flex-col pb-20">
-        <PortalHeader job={job} formType="delivery" />
+        <PortalHeader job={job} />
         <main className="flex-1 p-2 sm:p-4 overflow-x-auto">
-          {/* TODO: Implement renderStep() for delivery form (see collection form for reference) */}
+          {renderStep()}
         </main>
         <FormNavigation
           currentStep={currentStep}
