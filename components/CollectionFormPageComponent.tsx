@@ -83,23 +83,23 @@ export function CollectionFormPageComponent({ jobId, readOnly = true }: { jobId:
               </div>
               <div className="flex items-center justify-between py-3 border-b">
                 <Label className="text-muted-foreground">Vehicle Delivery Pack</Label>
-                <YesNoToggle value={formData.vehicleDeliveryPack} disabled />
+                <YesNoToggle value={formData.vehicleDeliveryPack} onChange={() => {}} disabled />
               </div>
               <div className="flex items-center justify-between py-3 border-b">
                 <Label className="text-muted-foreground">Locking Wheel Nut</Label>
-                <YesNoToggle value={formData.lockingWheelNut} disabled />
+                <YesNoToggle value={formData.lockingWheelNut} onChange={() => {}} disabled />
               </div>
               <div className="flex items-center justify-between py-3 border-b">
                 <Label className="text-muted-foreground">Number Plates present & match</Label>
-                <YesNoToggle value={formData.numberPlatesMatch} disabled />
+                <YesNoToggle value={formData.numberPlatesMatch} onChange={() => {}} disabled />
               </div>
               <div className="flex items-center justify-between py-3 border-b">
                 <Label className="text-muted-foreground">Any warning lights on</Label>
-                <YesNoToggle value={formData.warningLightsOn} disabled />
+                <YesNoToggle value={formData.warningLightsOn} onChange={() => {}} disabled />
               </div>
               <div className="flex items-center justify-between py-3">
                 <Label className="text-muted-foreground">Sat Nav working</Label>
-                <YesNoToggle value={formData.satNavWorking} disabled />
+                <YesNoToggle value={formData.satNavWorking} onChange={() => {}} disabled />
               </div>
             </CardContent>
           </Card>
@@ -110,27 +110,27 @@ export function CollectionFormPageComponent({ jobId, readOnly = true }: { jobId:
             <CardContent className="pt-6 space-y-4">
               <div className="flex items-center justify-between py-3 border-b">
                 <Label className="text-muted-foreground">Headrests present</Label>
-                <YesNoToggle value={formData.headrestsPresent} disabled />
+                <YesNoToggle value={formData.headrestsPresent} onChange={() => {}} disabled />
               </div>
               <div className="flex items-center justify-between py-3 border-b">
                 <Label className="text-muted-foreground">Parcel Shelf Present</Label>
-                <YesNoToggle value={formData.parcelShelfPresent} disabled />
+                <YesNoToggle value={formData.parcelShelfPresent} onChange={() => {}} disabled />
               </div>
               <div className="flex items-center justify-between py-3 border-b">
                 <Label className="text-muted-foreground">Spare Wheel / Tyre inflation / Run Flats</Label>
-                <YesNoToggle value={formData.spareWheelPresent} disabled />
+                <YesNoToggle value={formData.spareWheelPresent} onChange={() => {}} disabled />
               </div>
               <div className="flex items-center justify-between py-3 border-b">
                 <Label className="text-muted-foreground">Jack</Label>
-                <YesNoToggle value={formData.jackPresent} disabled />
+                <YesNoToggle value={formData.jackPresent} onChange={() => {}} disabled />
               </div>
               <div className="flex items-center justify-between py-3 border-b">
                 <Label className="text-muted-foreground">Tools</Label>
-                <YesNoToggle value={formData.toolsPresent} disabled />
+                <YesNoToggle value={formData.toolsPresent} onChange={() => {}} disabled />
               </div>
               <div className="flex items-center justify-between py-3 border-b">
                 <Label className="text-muted-foreground">Charging Cable(s)</Label>
-                <YesNoToggle value={formData.chargingCablesPresent} disabled />
+                <YesNoToggle value={formData.chargingCablesPresent} onChange={() => {}} disabled />
               </div>
               {formData.chargingCablesPresent && (
                 <div className="flex items-center justify-between py-3 border-b">
@@ -140,7 +140,7 @@ export function CollectionFormPageComponent({ jobId, readOnly = true }: { jobId:
               )}
               <div className="flex items-center justify-between py-3 border-b">
                 <Label className="text-muted-foreground">V5 (Registration document) present</Label>
-                <YesNoToggle value={formData.v5DocumentPresent} disabled />
+                <YesNoToggle value={formData.v5DocumentPresent} onChange={() => {}} disabled />
               </div>
               <div className="flex items-center justify-between py-3 border-b">
                 <Label className="text-muted-foreground">Light</Label>
@@ -244,13 +244,13 @@ export function CollectionFormPageComponent({ jobId, readOnly = true }: { jobId:
                 <Label className="text-muted-foreground text-sm">
                   Have you been shown the details recorded by the driver?
                 </Label>
-                <YesNoToggle value={formData.customerShownDetails} disabled />
+                <YesNoToggle value={formData.customerShownDetails} onChange={() => {}} disabled />
               </div>
               <div className="flex items-center justify-between py-3 border-b">
                 <Label className="text-muted-foreground text-sm">
                   Are you signing for this vehicle on behalf of someone else?
                 </Label>
-                <YesNoToggle value={formData.signingOnBehalf} disabled />
+                <YesNoToggle value={formData.signingOnBehalf} onChange={() => {}} disabled />
               </div>
               {formData.signingOnBehalf && (
                 <div>
