@@ -1,9 +1,9 @@
 "use client";
 import { useParams } from 'next/navigation';
-import { DeliveryFormPageComponent } from '@/components/DeliveryFormPage';
+import { DeliveryFormView } from '@/components/DeliveryFormView';
 
 export default function AdminDeliveryFormPage() {
 	const params = useParams();
 	const jobId = params.jobId as string;
-	return <DeliveryFormPageComponent jobId={jobId} isAdmin />;
+	return <DeliveryFormView jobId={jobId} readOnly />;
 }
