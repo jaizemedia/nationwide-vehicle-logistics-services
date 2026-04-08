@@ -362,6 +362,11 @@ export default function JobDetailPage() {
                       onClick={async () => {
                         await updateDoc(doc(db, 'jobs', jobId), { collectionFormStatus: 'in-progress' })
                         setJob(j => j ? { ...j, collectionFormStatus: 'in-progress' } : j)
+                        await fetch('/api/notify-job-status', {
+                          method: 'POST',
+                          headers: { 'Content-Type': 'application/json' },
+                          body: JSON.stringify({ jobId, status: 'Accepted' })
+                        })
                       }}
                     >
                       Accept Job
@@ -371,6 +376,11 @@ export default function JobDetailPage() {
                       onClick={async () => {
                         await updateDoc(doc(db, 'jobs', jobId), { collectionFormStatus: 'declined' })
                         setJob(j => j ? { ...j, collectionFormStatus: 'declined' } : j)
+                        await fetch('/api/notify-job-status', {
+                          method: 'POST',
+                          headers: { 'Content-Type': 'application/json' },
+                          body: JSON.stringify({ jobId, status: 'Declined' })
+                        })
                       }}
                     >
                       Decline Job
@@ -389,9 +399,14 @@ export default function JobDetailPage() {
                 <CardContent>
                   <div className="space-y-2">
                     {forms.map((form) => (
-                      <div key={form.id} className="flex items-center justify-between p-2 border rounded">
+                      <div key={form.id} className="flex items-center justify-between p-2 border rounded gap-2">
                         <span className="text-sm capitalize">{form.formType} Form</span>
-                        {getStatusBadge(form.status)}
+                        <div className="flex gap-2">
+                          <Link href={`/admin/jobs/${jobId}/${form.formType}-form`}>
+                            <Button size="sm" variant="outline">View</Button>
+                          </Link>
+                          {getStatusBadge(form.status)}
+                        </div>
                       </div>
                     ))}
                   </div>

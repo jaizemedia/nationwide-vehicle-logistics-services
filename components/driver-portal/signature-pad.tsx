@@ -2,6 +2,7 @@
 
 import { useRef, useEffect, useState } from 'react'
 import { Button } from '@/components/ui/button'
+import { uploadToCloudinary } from '@/lib/cloudinary'
 
 interface SignaturePadProps {
   value: string
@@ -93,7 +94,7 @@ export function SignaturePad({
     setHasSignature(true)
   }
 
-  const stopDrawing = () => {
+  const stopDrawing = async () => {
     if (!isDrawing) return
     setIsDrawing(false)
 
@@ -101,7 +102,18 @@ export function SignaturePad({
     if (!canvas) return
 
     const dataUrl = canvas.toDataURL('image/png')
-    onChange(dataUrl)
+    try {
+      // Convert dataURL to Blob
+      const res = await fetch(dataUrl)
+      const blob = await res.blob()
+      const file = new File([blob], 'signature.png', { type: 'image/png' })
+      // Upload to Cloudinary
+      const url = await uploadToCloudinary(file)
+      onChange(url)
+    } catch (err) {
+      // fallback to dataUrl if upload fails
+      onChange(dataUrl)
+    }
 
     if (onTimestampChange && !timestamp) {
       const now = new Date()
