@@ -332,8 +332,20 @@ export function CollectionFormPageComponent({ jobId, readOnly = true }: { jobId:
         {renderStep()}
       </main>
       <div className="flex justify-between p-4">
-        <button className="btn" onClick={() => setCurrentStep(Math.max(1, currentStep - 1))} disabled={currentStep === 1}>Previous</button>
-        <button className="btn" onClick={() => setCurrentStep(Math.min(TOTAL_STEPS, currentStep + 1))} disabled={currentStep === TOTAL_STEPS}>Next</button>
+        <button
+          className="btn"
+          onClick={() => setCurrentStep(Math.max(1, currentStep - 1))}
+          disabled={currentStep === 1}
+        >
+          Previous
+        </button>
+        <button
+          className="btn"
+          onClick={() => setCurrentStep(Math.min(TOTAL_STEPS, currentStep + 1))}
+          disabled={currentStep === TOTAL_STEPS}
+        >
+          Next
+        </button>
       </div>
     </div>
   );
