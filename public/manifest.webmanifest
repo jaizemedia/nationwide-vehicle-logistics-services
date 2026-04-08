@@ -1,0 +1,37 @@
+{
+  "name": "Continental Vehicle Logistics Services",
+  "short_name": "NVLS",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#ffffff",
+  "theme_color": "#0f172a",
+  "description": "Professional vehicle movement and logistics support company. Trade plate movements, bulk delivery, vehicle inspections, and customer handover services.",
+  "icons": [
+    {
+      "src": "/1.png",
+      "sizes": "2000x2000",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/2.png",
+      "sizes": "2000x2000",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/3.png",
+      "sizes": "2000x2000",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/4.png",
+      "sizes": "2000x2000",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
