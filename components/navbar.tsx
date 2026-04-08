@@ -53,6 +53,11 @@ export function Navbar() {
       Driver Portal
     </Button>
   </Link>
+  <Link href="/admin">
+    <Button variant="outline" className="border-[#1a8a8a] text-[#1a8a8a] hover:bg-[#1a8a8a] hover:text-white">
+      Admin
+    </Button>
+  </Link>
   <Link href="/get-a-quote">
     <Button className="bg-primary text-primary-foreground hover:bg-primary/90">
       Get a Quote
@@ -92,18 +97,25 @@ export function Navbar() {
                 </Link>
               ))}
               <Button 
-  onClick={() => window.location.href = '/driver-portal'}
-  variant="outline"
-  className="w-full border-black text-black dark:text-white hover:bg-black hover:text-white"
->
-  Driver Portal
-</Button>
-<Button 
-  onClick={() => window.location.href = '/get-a-quote'}
-  className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
->
-  Get a Quote
-</Button>
+                onClick={() => window.location.href = '/driver-portal'}
+                variant="outline"
+                className="w-full border-black text-black dark:text-white hover:bg-black hover:text-white"
+              >
+                Driver Portal
+              </Button>
+              <Button 
+                onClick={() => window.location.href = '/admin'}
+                variant="outline"
+                className="w-full border-black text-black dark:text-white hover:bg-black hover:text-white"
+              >
+                Admin
+              </Button>
+              <Button 
+                onClick={() => window.location.href = '/get-a-quote'}
+                className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
+              >
+                Get a Quote
+              </Button>
               <div className="flex justify-center pt-2">
                 <ThemeToggle />
               </div>
