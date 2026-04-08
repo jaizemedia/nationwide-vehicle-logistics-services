@@ -69,9 +69,6 @@ export default function ClientPortal() {
               )}
               {jobs.map((job) => (
                 <Card key={job.id} className="mb-4 border border-slate-200">
-                  <CardHeader>
-                    <CardTitle className="text-lg">Job Reference: {job.jobReference}</CardTitle>
-                  </CardHeader>
                   <CardContent>
                     <div className="mb-2">
                       <span className="font-semibold">Vehicle:</span> {job.vehicleMake} {job.vehicleModel}
