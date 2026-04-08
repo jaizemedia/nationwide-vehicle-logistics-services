@@ -3,6 +3,7 @@ import { Hero } from "@/components/hero";
 import { About } from "@/components/about";
 import { Services } from "@/components/services";
 import { Footer } from "@/components/footer";
+import { PWAInstallPrompt } from "@/components/pwa-install-prompt";
 
 export default function Home() {
   return (
@@ -12,6 +13,7 @@ export default function Home() {
       <About />
       <Services />
       <Footer />
+      <PWAInstallPrompt />
     </main>
   );
 }
