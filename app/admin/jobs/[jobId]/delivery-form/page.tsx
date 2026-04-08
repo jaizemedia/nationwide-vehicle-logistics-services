@@ -1,3 +1,4 @@
+"use client";
 import { useParams } from 'next/navigation';
 import { DeliveryFormPageComponent } from '@/components/DeliveryFormPage';
 
