@@ -1,8 +1,9 @@
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
-import { Analytics } from '@vercel/analytics/next'
 import { ThemeProvider } from '@/components/theme-provider'
+import { PWARegistration } from '@/components/pwa-registration'
 import './globals.css'
+import { Analytics } from "@vercel/analytics/next"
 
 const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
@@ -11,6 +12,7 @@ export const metadata: Metadata = {
   title: 'Continental Vehicle Logistics Services | Safe & Reliable Transport',
   description: 'Professional vehicle movement and logistics support company. Trade plate movements, bulk delivery, vehicle inspections, and customer handover services.',
   generator: 'v0.app',
+  manifest: '/manifest.webmanifest',
   icons: {
     icon: [
       {
@@ -24,6 +26,12 @@ export const metadata: Metadata = {
     ],
     apple: '/4.png',
   },
+}
+
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  themeColor: '#0f172a',
 }
 
 export default function RootLayout({
@@ -43,6 +51,7 @@ export default function RootLayout({
           {children}
         </ThemeProvider>
         {process.env.NODE_ENV === 'production' && <Analytics />}
+        <PWARegistration />
       </body>
     </html>
   )
