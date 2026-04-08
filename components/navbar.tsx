@@ -58,6 +58,11 @@ export function Navbar() {
       Admin
     </Button>
   </Link>
+   <Link href="/client-portal">
+    <Button variant="outline" className="border-[#1a8a8a] text-[#1a8a8a] hover:bg-[#1a8a8a] hover:text-white">
+      Client Portal
+    </Button>
+  </Link>
   <Link href="/get-a-quote">
     <Button className="bg-primary text-primary-foreground hover:bg-primary/90">
       Get a Quote

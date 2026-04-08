@@ -17,6 +17,7 @@ const steps = [
     number: "02",
     label: "Order Details",
     fields: [
+      { id: "numberPlate", label: "Vehicle Number Plate", placeholder: "e.g. GN-1234-22", icon: Car, type: "text", required: true },
       { id: "pickup", label: "Vehicle Pickup Location", placeholder: "e.g. Accra, Ghana", icon: MapPin, type: "text", required: true },
       { id: "delivery", label: "Delivery Point", placeholder: "e.g. Tema, Ghana", icon: Navigation, type: "text", required: true },
       { id: "carModel", label: "Car Make and Model", placeholder: "e.g. BMW 3 Series", icon: Car, type: "text", required: true },
@@ -49,19 +50,44 @@ export function QuoteForm() {
     setError(null);
 
     try {
-      const response = await fetch("https://formspree.io/f/xanwpqko", {
+      // Send to Formspree as before
+      await fetch("https://formspree.io/f/xanwpqko", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
 
-      if (response.ok) {
-        setSubmitted(true);
-      } else {
-        setError("Something went wrong. Please try again.");
-      }
-    } catch {
-      setError("Network error. Please check your connection and try again.");
+      // Also create a job in the backend
+      const jobPayload = {
+        jobReference: `QUOTE-${Date.now()}`,
+        vehicleRegistration: formData.numberPlate,
+        vehicleMake: formData.carModel,
+        vehicleModel: formData.carModel,
+        vehicleColor: '',
+        chassisNumber: '',
+        requiredDeliveryDate: '',
+        collectionAddress: formData.pickup,
+        collectionPostcode: '',
+        collectionTelephone: formData.phone,
+        collectionTelephone2: '',
+        collectionName: formData.fullName,
+        deliveryAddress: formData.delivery,
+        deliveryPostcode: '',
+        deliveryTelephone: formData.phone,
+        deliveryTelephone2: '',
+        deliveryName: formData.fullName,
+        specialNotes: formData.message,
+        jobProviderNotes: '',
+      };
+      await fetch("/api/jobs", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(jobPayload),
+      });
+
+      setSubmitted(true);
+    } catch (err) {
+      setError("Something went wrong. Please try again.");
     } finally {
       setIsLoading(false);
     }

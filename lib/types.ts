@@ -28,8 +28,8 @@ export interface Job {
   jobProviderNotes?: string
   
   // Form status
-  collectionFormStatus: 'new' | 'in-progress' | 'sent'
-  deliveryFormStatus: 'new' | 'in-progress' | 'sent'
+  collectionFormStatus: 'new' | 'in-progress' | 'sent' | 'declined'
+  deliveryFormStatus: 'new' | 'in-progress' | 'sent' | 'declined'
   
   createdAt: string
   updatedAt: string
@@ -39,7 +39,7 @@ export interface FormData {
   id?: string
   jobId: string
   formType: 'collection' | 'delivery'
-  status: 'new' | 'in-progress' | 'sent'
+  status: 'new' | 'in-progress' | 'sent' | 'declined'
   
   // Step 1: Basic vehicle info
   mileage: string

@@ -137,7 +137,11 @@ export default function JobDetailPage() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <Link href="/admin/dashboard">
-                <Button variant="outline" size="sm" className="border-white/30 text-white hover:bg-white/10">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="border border-neutral-300 text-neutral-800 bg-white hover:bg-neutral-100 focus:ring-2 focus:ring-black dark:border-white/30 dark:text-white dark:bg-neutral-900 dark:hover:bg-neutral-800 dark:focus:ring-white"
+                >
                   <ArrowLeft className="h-4 w-4 mr-2" />
                   Back to the Dashboard
                 </Button>
@@ -149,7 +153,11 @@ export default function JobDetailPage() {
             </div>
             <div className="flex gap-2">
               <Link href={`/admin/jobs/${jobId}/edit`}>
-                <Button variant="outline" size="sm" className="border-white/30 text-white hover:bg-white/10">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="border border-neutral-300 text-neutral-800 bg-white hover:bg-neutral-100 focus:ring-2 focus:ring-black dark:border-white/30 dark:text-white dark:bg-neutral-900 dark:hover:bg-neutral-800 dark:focus:ring-white"
+                >
                   <Edit className="h-4 w-4 mr-2" />
                   Edit
                 </Button>
@@ -159,7 +167,7 @@ export default function JobDetailPage() {
                 size="sm"
                 onClick={handleDeleteJob}
                 disabled={deleting}
-                className="border-red-300 text-red-100 hover:bg-red-600"
+                className="border border-red-300 text-red-700 bg-white hover:bg-red-50 focus:ring-2 focus:ring-red-500 dark:border-red-400 dark:text-red-300 dark:bg-neutral-900 dark:hover:bg-red-900 dark:focus:ring-red-400"
               >
                 {deleting ? (
                   <Loader2 className="h-4 w-4 animate-spin" />
@@ -346,6 +354,29 @@ export default function JobDetailPage() {
                   <Label className="text-sm font-medium text-muted-foreground">Delivery Form</Label>
                   <div className="mt-1">{getStatusBadge(job.deliveryFormStatus)}</div>
                 </div>
+                {/* Accept/Decline Buttons */}
+                {job.collectionFormStatus === 'new' && (
+                  <div className="flex flex-col gap-2 mt-4 md:flex-row">
+                    <Button
+                      className="w-full md:w-1/2 bg-green-600 hover:bg-green-700 text-white"
+                      onClick={async () => {
+                        await updateDoc(doc(db, 'jobs', jobId), { collectionFormStatus: 'in-progress' })
+                        setJob(j => j ? { ...j, collectionFormStatus: 'in-progress' } : j)
+                      }}
+                    >
+                      Accept Job
+                    </Button>
+                    <Button
+                      className="w-full md:w-1/2 bg-red-600 hover:bg-red-700 text-white"
+                      onClick={async () => {
+                        await updateDoc(doc(db, 'jobs', jobId), { collectionFormStatus: 'declined' })
+                        setJob(j => j ? { ...j, collectionFormStatus: 'declined' } : j)
+                      }}
+                    >
+                      Decline Job
+                    </Button>
+                  </div>
+                )}
               </CardContent>
             </Card>
 

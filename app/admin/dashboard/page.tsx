@@ -119,6 +119,8 @@ export default function AdminDashboard() {
         return <Badge className="bg-green-100 text-green-800">Sent</Badge>
       case 'in-progress':
         return <Badge className="bg-yellow-100 text-yellow-800">In Progress</Badge>
+      case 'declined':
+        return <Badge className="bg-red-100 text-red-800">Declined</Badge>
       default:
         return <Badge className="bg-gray-100 text-gray-800">New</Badge>
     }
