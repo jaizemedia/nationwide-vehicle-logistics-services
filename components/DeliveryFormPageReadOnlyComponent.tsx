@@ -12,11 +12,10 @@ import { YesNoToggle } from '@/components/driver-portal/yes-no-toggle';
 import { PhotoUpload } from '@/components/driver-portal/photo-upload';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 const TOTAL_STEPS = 11;
 
-export function CollectionFormPageComponent({ jobId, readOnly = true }: { jobId: string, readOnly?: boolean }) {
+export function DeliveryFormPageReadOnlyComponent({ jobId }: { jobId: string }) {
   const [formData, setFormData] = useState<FormData | null>(null);
   const [job, setJob] = useState<Job | null>(null);
   const [currentStep, setCurrentStep] = useState(1);
@@ -26,7 +25,7 @@ export function CollectionFormPageComponent({ jobId, readOnly = true }: { jobId:
   useEffect(() => {
     async function fetchForm() {
       try {
-        const formRef = doc(db, 'forms', `${jobId}_collection`);
+        const formRef = doc(db, 'forms', `${jobId}_delivery`);
         const formSnap = await getDoc(formRef);
         if (formSnap.exists()) {
           setFormData(formSnap.data() as FormData);
@@ -58,7 +57,6 @@ export function CollectionFormPageComponent({ jobId, readOnly = true }: { jobId:
     );
   }
 
-  // Render the same step-by-step UI as the driver portal, but all fields are read-only
   const renderStep = () => {
     switch (currentStep) {
       case 1:
@@ -66,7 +64,7 @@ export function CollectionFormPageComponent({ jobId, readOnly = true }: { jobId:
           <Card>
             <CardContent className="pt-6 space-y-4">
               <div className="flex items-center justify-between py-3 border-b">
-                <Label className="text-muted-foreground">Mileage on collection</Label>
+                <Label className="text-muted-foreground">Mileage on delivery</Label>
                 <Input type="number" value={formData.mileage} readOnly disabled className="w-32 text-right" />
               </div>
               <div className="flex items-center justify-between py-3 border-b">
@@ -182,7 +180,7 @@ export function CollectionFormPageComponent({ jobId, readOnly = true }: { jobId:
               {/* Render summary fields as in driver portal */}
               <div className="flex flex-col gap-2">
                 <div className="flex justify-between py-2 border-b">
-                  <span className="text-muted-foreground">Mileage on collection</span>
+                  <span className="text-muted-foreground">Mileage on delivery</span>
                   <span>{formData.mileage || '-'}</span>
                 </div>
                 <div className="flex justify-between py-2 border-b">
