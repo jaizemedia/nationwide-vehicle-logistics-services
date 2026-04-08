@@ -322,25 +322,25 @@ export function CollectionFormPageComponent({ jobId, readOnly = true }: { jobId:
 
   return (
     <div className="min-h-screen flex flex-col pb-20">
-      <div className="px-4 py-2 flex items-center justify-between bg-white mx-2 mt-2 rounded-lg">
+      <div className="px-2 sm:px-4 py-2 flex flex-col sm:flex-row items-center justify-between bg-white mx-0 sm:mx-2 mt-2 rounded-lg gap-2 sm:gap-0">
         <span className="text-sm font-medium">Step {currentStep}/{TOTAL_STEPS}</span>
         <button className="p-2" disabled>
           <ImageIcon className="h-5 w-5 text-muted-foreground" />
         </button>
       </div>
-      <main className="flex-1 p-4">
+      <main className="flex-1 p-2 sm:p-4 overflow-x-auto">
         {renderStep()}
       </main>
-      <div className="flex justify-between p-4">
+      <div className="flex flex-col sm:flex-row justify-between gap-2 p-2 sm:p-4">
         <button
-          className="btn"
+          className="btn w-full sm:w-auto"
           onClick={() => setCurrentStep(Math.max(1, currentStep - 1))}
           disabled={currentStep === 1}
         >
           Previous
         </button>
         <button
-          className="btn"
+          className="btn w-full sm:w-auto"
           onClick={() => setCurrentStep(Math.min(TOTAL_STEPS, currentStep + 1))}
           disabled={currentStep === TOTAL_STEPS}
         >
